@@ -1,3 +1,7 @@
+/*
+書籍管理アプリのbody部分。
+書籍を一覧表示。
+*/
 import { ChangeEvent, memo, useCallback, useEffect,useState, VFC } from "react";
 import {
   Center,
@@ -28,7 +32,7 @@ export const BookManagement: VFC = memo(() => {
   );
 
   const [isForRentOnly, setIsForRentOnly] = useState(false);
-
+  //チェックボックスがついていたら貸出可能図書のみ表示するよう判定
   const onCangeCheckbox = () =>
   setIsForRentOnly(!isForRentOnly);
 
@@ -41,6 +45,7 @@ export const BookManagement: VFC = memo(() => {
       ) : (
         <>
           <Wrap ml="10" mt="5">
+            {/*チェンジボックスの設定*/}
             <Checkbox 
               size='md' 
               colorScheme='green'
@@ -50,8 +55,10 @@ export const BookManagement: VFC = memo(() => {
             </Checkbox>
           </Wrap>
           <Wrap p={{ base: 4, md: 10 }}>
+            {/*貸出可能図書か判定*/}
             {isForRentOnly ? (
               <>
+              　{/*貸出中ではない図書を一覧表示*/}
                 {books.filter(obj => !obj.isLending)
                       .map(obj => (
                 <WrapItem key={obj.isbn} mx="auto">
@@ -68,6 +75,7 @@ export const BookManagement: VFC = memo(() => {
               </>
             ) : (
               <>
+                {/*貸出中問わず一覧表示*/}
                 {books.map(obj => (
                 <WrapItem key={obj.isbn} mx="auto">
                   <BookCard

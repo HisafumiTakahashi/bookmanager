@@ -1,3 +1,6 @@
+/*
+表示される書籍情報項目を実装。
+*/
 import { memo, VFC } from "react";
 import { Box, Image, Stack, Text } from "@chakra-ui/react";
 
