@@ -6,4 +6,5 @@ export type Book = {
   imageUrl: string;
   isLending: boolean;
   lender: string;
+  lendingYMD: Date;
 };
