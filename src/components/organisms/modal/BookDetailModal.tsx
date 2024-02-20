@@ -1,3 +1,6 @@
+/*
+書籍詳細情報ダイアログについて定義
+*/
 import { ChangeEvent, memo, useEffect, useState, VFC } from "react";
 import {
   FormControl,
@@ -30,6 +33,7 @@ export const BookDetailModal: VFC<Props> = memo(props => {
   const [publisher, setPublisher] = useState("");
   const [isLending, setIsLending] = useState(false);
   const [lender, setLender] = useState("");
+  const [lendingYMD, setLendingYMD] = useState(new Date());
   
 
   useEffect(() => {
@@ -38,6 +42,7 @@ export const BookDetailModal: VFC<Props> = memo(props => {
     setPublisher(book?.publisher ?? "");
     setIsLending(book?.isLending ?? false);
     setLender(book?.lender ?? "");
+    setLendingYMD(book?.lendingYMD ?? new Date());
   }, [book]);
 
   const onChangeLender = (e: ChangeEvent<HTMLInputElement>) =>
@@ -48,6 +53,7 @@ export const BookDetailModal: VFC<Props> = memo(props => {
     alert(title + " を貸し出しを登録しました")
   };
 
+  //書籍詳細情報ダイアログを返す
   return (
     <Modal
       isOpen={isOpen}
