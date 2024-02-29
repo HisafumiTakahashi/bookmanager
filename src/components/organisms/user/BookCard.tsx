@@ -35,7 +35,7 @@ export const BookCard: VFC<Props> = memo(props => {
           height={"250px"}
         />
         <Text fontSize="md" fontWeight="bold">
-          {title}
+        {title}
         </Text>
         <Text fontSize="sm" color="gray">
           {author}
