@@ -2,6 +2,8 @@
 書籍詳細情報ダイアログについて定義
 */
 import { ChangeEvent, memo, useEffect, useState, VFC } from "react";
+import axios from "axios";
+import { useMessage } from "../../../hooks/useMessage";
 import {
   FormControl,
   FormLabel,
@@ -28,15 +30,19 @@ type Props = {
 export const BookDetailModal: VFC<Props> = memo(props => {
   const { isOpen, onClose, book } = props;
 
+  const [isbn,setIsbn] = useState(0);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [publisher, setPublisher] = useState("");
   const [isLending, setIsLending] = useState(false);
   const [lender, setLender] = useState("");
   const [lendingYMD, setLendingYMD] = useState(new Date());
+  const [loading, setLoading] = useState(false);
+  const { showMessage } = useMessage();
   
 
   useEffect(() => {
+    setIsbn(book?.isbn ?? 0);
     setTitle(book?.title ?? "");
     setAuthor(book?.author ?? "");
     setPublisher(book?.publisher ?? "");
@@ -48,10 +54,33 @@ export const BookDetailModal: VFC<Props> = memo(props => {
   const onChangeLender = (e: ChangeEvent<HTMLInputElement>) =>
   setLender(e.target.value);
 
-  const onClickLend = () => {
+  /*const onClickLend = () => {
     console.log(title);
     alert(title + " を貸し出しを登録しました")
+  };*/
+  const onClickLend = () => {
+    console.log(title);
+    setLoading(true);
+    const params = new URLSearchParams;
+    params.append('isbn',JSON.stringify(isbn));
+    params.append('lender',JSON.stringify(lender));
+
+    axios
+      .post("https://script.google.com/macros/s/AKfycbyMcjxKY1xdpcmQ7f5ZQjeoH-hmUt0-cNmV5oT-sqEmLsC318-nzr2piWmlo1k2m2Yd/exec",
+            params,{
+              headers: {
+              Accept: 'application/json',
+             'Content-Type': 'application/x-www-form-urlencoded',
+              }
+            })
+      .then(() => alert(title + " を貸し出しを登録しました"))
+      .catch(() =>
+        alert({ title: "書籍貸出登録に失敗しました", status: "error" })
+      )
+      .finally(() => setLoading(false));
   };
+          
+
 
   //書籍詳細情報ダイアログを返す
   return (
