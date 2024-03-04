@@ -13,12 +13,19 @@ export const useAllBooks = () => {
   const getBooks = useCallback(() => {
     setLoading(true);
     axios
-      .get<Array<Book>>("https://api.sssapi.app/08lvYLdiw64gq0FljZLrA")
+      .get<Array<Book>>("https://script.google.com/macros/s/AKfycbyMcjxKY1xdpcmQ7f5ZQjeoH-hmUt0-cNmV5oT-sqEmLsC318-nzr2piWmlo1k2m2Yd/exec",
+      {method:'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        }
+      })
       .then(res => setBooks(res.data))
       .catch(() =>
         showMessage({ title: "書籍一覧取得に失敗しました", status: "error" })
       )
       .finally(() => setLoading(false));
+      
   }, []);
 
   return { getBooks, loading, books };
