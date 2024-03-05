@@ -19,9 +19,9 @@ export const LendingCard: VFC<Props> = memo((props) => {
   LendingYMD =
     LendingYMD.substring(0, 4) +
     "/" +
-    LendingYMD.substring(4, 6) +
+    LendingYMD.substring(5, 7) +
     "/" +
-    LendingYMD.substring(6, 8);
+    LendingYMD.substring(8, 10);
 
   return (
     <>
