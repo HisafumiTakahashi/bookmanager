@@ -56,7 +56,7 @@ export const Return: VFC = memo(() => {
     <>
       <Wrap p={{ base: 2, md: 5 }}>
       <WrapItem>
-        <Box w="500px" h="70px" shadow="md" p={4}>
+        <Box w="500px" h="70px" shadow="md" bgColor='white' p={4}>
           <Stack textAlign="center">
             <Text fontSize="md">書籍名</Text>
           </Stack>
