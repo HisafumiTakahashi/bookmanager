@@ -15,7 +15,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Stack
+  Stack,
 } from "@chakra-ui/react";
 
 import { Book } from "../../../types/api/book";
@@ -27,10 +27,10 @@ type Props = {
   onClose: () => void;
 };
 
-export const BookDetailModal: VFC<Props> = memo(props => {
+export const BookDetailModal: VFC<Props> = memo((props) => {
   const { isOpen, onClose, book } = props;
 
-  const [isbn,setIsbn] = useState(0);
+  const [isbn, setIsbn] = useState(0);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [publisher, setPublisher] = useState("");
@@ -39,7 +39,6 @@ export const BookDetailModal: VFC<Props> = memo(props => {
   const [lendingYMD, setLendingYMD] = useState(new Date());
   const [loading, setLoading] = useState(false);
   const { showMessage } = useMessage();
-  
 
   useEffect(() => {
     setIsbn(book?.isbn ?? 0);
@@ -52,7 +51,7 @@ export const BookDetailModal: VFC<Props> = memo(props => {
   }, [book]);
 
   const onChangeLender = (e: ChangeEvent<HTMLInputElement>) =>
-  setLender(e.target.value);
+    setLender(e.target.value);
 
   /*const onClickLend = () => {
     console.log(title);
@@ -61,26 +60,34 @@ export const BookDetailModal: VFC<Props> = memo(props => {
   const onClickLend = () => {
     console.log(title);
     setLoading(true);
-    const params = new URLSearchParams;
-    params.append('isbn',JSON.stringify(isbn));
-    params.append('lender',JSON.stringify(lender));
+    const params = new URLSearchParams();
+    params.append("isbn", JSON.stringify(isbn));
+    params.append("lender", JSON.stringify(lender));
 
-    axios
-      .post("https://script.google.com/macros/s/AKfycbyMcjxKY1xdpcmQ7f5ZQjeoH-hmUt0-cNmV5oT-sqEmLsC318-nzr2piWmlo1k2m2Yd/exec",
-            params,{
-              headers: {
-              Accept: 'application/json',
-             'Content-Type': 'application/x-www-form-urlencoded',
-              }
-            })
-      .then(() => alert(title + " を貸し出しを登録しました"))
-      .catch(() =>
-        alert({ title: "書籍貸出登録に失敗しました", status: "error" })
-      )
-      .finally(() => setLoading(false));
+    if (lender != "") {
+      axios
+        .post(
+          "https://script.google.com/macros/s/AKfycbyMcjxKY1xdpcmQ7f5ZQjeoH-hmUt0-cNmV5oT-sqEmLsC318-nzr2piWmlo1k2m2Yd/exec",
+          params,
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        )
+        .then(() => alert(title + " を貸し出しを登録しました"))
+        .catch(() =>
+          alert({ title: "書籍貸出登録に失敗しました", status: "error" })
+        )
+        .finally(() => {
+          setLoading(false);
+          window.location.reload();
+        });
+    } else {
+      alert("借用者名を入力してください。");
+    }
   };
-          
-
 
   //書籍詳細情報ダイアログを返す
   return (
@@ -98,34 +105,26 @@ export const BookDetailModal: VFC<Props> = memo(props => {
           <Stack spacing={4}>
             <FormControl>
               <FormLabel>タイトル</FormLabel>
-              <Input
-                value={title}
-              />
+              <Input value={title} />
             </FormControl>
             <FormControl>
               <FormLabel>著者</FormLabel>
-              <Input
-                value={author}
-              />
+              <Input value={author} />
             </FormControl>
             <FormControl>
               <FormLabel>出版社</FormLabel>
-              <Input
-                type="publisher"
-                value={publisher}
-               />
+              <Input type="publisher" value={publisher} />
             </FormControl>
 
             <FormControl>
-             <FormLabel>借用者名</FormLabel>
-             <Input  
-              type="lender" 
-              value={lender}
-              isReadOnly={book && book.isLending}
-              onChange={onChangeLender}
-             />
+              <FormLabel>借用者名</FormLabel>
+              <Input
+                type="lender"
+                value={lender}
+                isReadOnly={book && book.isLending}
+                onChange={onChangeLender}
+              />
             </FormControl>
-
           </Stack>
         </ModalBody>
         <ModalFooter>
