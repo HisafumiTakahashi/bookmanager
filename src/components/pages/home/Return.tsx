@@ -20,23 +20,23 @@ export const Return: VFC = memo(() => {
   return (
     <>
       <Wrap p={{ base: 2, md: 5 }}>
-        <Box w="500px" h="70px" shadow="md" p={4}>
+      <WrapItem>
+        <Box w="500px" h="70px" shadow="md" bgColor='white' p={4}>
           <Stack textAlign="center">
             <Text fontSize="md">書籍名</Text>
           </Stack>
         </Box>
-
-        <Box w="250px" h="70px" shadow="md" p={4}>
+        <Box w="250px" h="70px" shadow="md" bgColor='white' p={4}>
           <Stack textAlign="center">
             <Text fontSize="md">氏名</Text>
           </Stack>
         </Box>
-
-        <Box w="250px" h="70px" shadow="md" p={4}>
+        <Box w="250px" h="70px" shadow="md" bgColor='white' p={4}>
           <Stack textAlign="center">
             <Text fontSize="md">貸出日</Text>
           </Stack>
         </Box>
+        </WrapItem>
       </Wrap>
 
       {loading ? (
@@ -46,7 +46,7 @@ export const Return: VFC = memo(() => {
       ) : (
         <Wrap p={{ base: 2, md: 5 }}>
           <>
-            　{/*貸出中の図書を一覧表示*/}
+            {/*貸出中の図書を一覧表示*/}
             {books
               .filter((obj) => obj.isLending)
               .map((obj) => (
