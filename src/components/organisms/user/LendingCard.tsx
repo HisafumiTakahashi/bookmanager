@@ -25,19 +25,19 @@ export const LendingCard: VFC<Props> = memo((props) => {
 
   return (
     <>
-      <Box w="500px" h="70px" shadow="md" p={4}>
+      <Box w="500px" h="70px" shadow="md" bgColor='white' p={4}>
         <Stack textAlign="center">
           <Text fontSize="md">{title}</Text>
         </Stack>
       </Box>
 
-      <Box w="250px" h="70px" shadow="md" p={4}>
+      <Box w="250px" h="70px" shadow="md" bgColor='white' p={4}>
         <Stack textAlign="center">
           <Text fontSize="md">{lender}</Text>
         </Stack>
       </Box>
 
-      <Box w="250px" h="70px" shadow="md" p={4}>
+      <Box w="250px" h="70px" shadow="md" bgColor='white' p={4}>
         <Stack textAlign="center">
           <Text fontSize="md">{LendingYMD}</Text>
         </Stack>

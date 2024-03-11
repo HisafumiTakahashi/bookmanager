@@ -54,24 +54,26 @@ export const Return: VFC = memo(() => {
 
   return (
     <>
-      <Wrap>
-        <Box w="500px" h="70px" p={4}>
+      <Wrap p={{ base: 2, md: 5 }}>
+      <WrapItem>
+        <Box w="500px" h="70px" shadow="md" bgColor='white' p={4}>
           <Stack textAlign="center">
             <Text fontSize="md">書籍名</Text>
           </Stack>
         </Box>
 
-        <Box w="250px" h="70px" p={4}>
+        <Box w="250px" h="70px" shadow="md" bgColor='white'p={4}>
           <Stack textAlign="center">
             <Text fontSize="md">借用者名</Text>
           </Stack>
         </Box>
 
-        <Box w="250px" h="70px" p={4}>
+        <Box w="250px" h="70px" shadow="md" bgColor='white'p={4}>
           <Stack textAlign="center">
             <Text fontSize="md">貸出日</Text>
           </Stack>
         </Box>
+        </WrapItem>
       </Wrap>
 
       {loading ? (
